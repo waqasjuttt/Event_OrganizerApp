@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="Text_Size">15sp</dimen>
+    <dimen name="Text_Size_14">14sp</dimen>
+    <dimen name="Text_Size_16">16sp</dimen>
+    <dimen name="Text_Size_17">17sp</dimen>
+    <dimen name="Text_Size_15">15sp</dimen>
+
+    <dimen name="Padding_20">20dp</dimen>
+    <dimen name="Padding_10">10dp</dimen>
+    <dimen name="Padding_5">5dp</dimen>
+    <dimen name="Padding_8">8dp</dimen>
+    <dimen name="Padding_7">7dp</dimen>
+    <dimen name="Padding_3">3dp</dimen>
+    <dimen name="Padding_40">40dp</dimen>
+    <dimen name="Padding_15">15dp</dimen>
+    <dimen name="Padding_100">100dp</dimen>
+    <dimen name="Padding_30">30dp</dimen>
+</resources>

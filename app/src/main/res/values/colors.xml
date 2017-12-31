@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="custom_toast_color">#c0392b</color>
+    <color name="blue">#0008ff</color>
+    <color name="background_color">#fafa26</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="Light_blue">#ff0804</color>
+    <color name="button_selectorcolor">#37ff00</color>
+    <color name="start_blue">#09c6df</color>
+    <color name="end_blue">#0bcce6</color>
+    <color name="graylight">#fafafa</color>
+    <color name="gray">#b4b3b3</color>
+</resources>
