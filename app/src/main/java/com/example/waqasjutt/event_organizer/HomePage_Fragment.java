@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,15 +89,21 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
     }
 
     private void AddImageUrlFormLocalRes() {
-        HashMapForLocalRes = new HashMap<String, Integer>();
+        HashMapForLocalRes = new HashMap<>();
 
         HashMapForLocalRes.put("Wedding Stage", R.drawable.wedding);
         HashMapForLocalRes.put("Birth Day", R.drawable.birthday);
+        HashMapForLocalRes.put("Event-2", R.drawable.event2);
+        HashMapForLocalRes.put("DJ Event", R.drawable.dj_event);
         HashMapForLocalRes.put("Walima Stage", R.drawable.walima);
+        HashMapForLocalRes.put("Event-3", R.drawable.event3);
         HashMapForLocalRes.put("Event", R.drawable.event);
-//        HashMapForLocalRes.put("Wedding-Hall", R.drawable.hall);
+        HashMapForLocalRes.put("Wedding Hall-3", R.drawable.hall3);
+        HashMapForLocalRes.put("Wedding Hall-4", R.drawable.hall4);
+        HashMapForLocalRes.put("Wedding Hall-5", R.drawable.hall5);
+        HashMapForLocalRes.put("Wedding-Hall", R.drawable.hall);
         HashMapForLocalRes.put("Mehfil-e-Melaad Stage", R.drawable.mehfil);
-//        HashMapForLocalRes.put("Wedding Hall", R.drawable.hall2);
+        HashMapForLocalRes.put("Wedding Hall-2", R.drawable.hall2);
     }
 
     @Override
