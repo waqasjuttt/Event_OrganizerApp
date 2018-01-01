@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +23,6 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
 
     private SliderLayout sliderLayout;
     private HashMap<String, Integer> HashMapForLocalRes;
-
-    private SharedPreferences sharedPreferences;
     private View view;
     private static FragmentManager fragmentManager;
 
@@ -46,16 +43,52 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
 
         for (String name : HashMapForLocalRes.keySet()) {
             TextSliderView textSliderView = new TextSliderView(getActivity());
-            textSliderView
-                    .description(name)
-                    .image(HashMapForLocalRes.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra", name);
 
-            sliderLayout.addSlider(textSliderView);
+            if (name.toString().contains("-2")) {
+                textSliderView
+                        .description(name.toString().replace("-2", ""))
+                        .image(HashMapForLocalRes.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setOnSliderClickListener(this);
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra", name);
+
+                sliderLayout.addSlider(textSliderView);
+            } else if (name.toString().contains("-3")) {
+                textSliderView
+                        .description(name.toString().replace("-3", ""))
+                        .image(HashMapForLocalRes.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setOnSliderClickListener(this);
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra", name);
+
+                sliderLayout.addSlider(textSliderView);
+            } else if (name.toString().contains("-4")) {
+                textSliderView
+                        .description(name.toString().replace("-4", ""))
+                        .image(HashMapForLocalRes.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setOnSliderClickListener(this);
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra", name);
+
+                sliderLayout.addSlider(textSliderView);
+            } else {
+                textSliderView
+                        .description(name)
+                        .image(HashMapForLocalRes.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setOnSliderClickListener(this);
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra", name);
+
+                sliderLayout.addSlider(textSliderView);
+            }
         }
         sliderLayout.setPresetTransformer(SliderLayout.Transformer.ZoomOut);
         sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
@@ -98,12 +131,13 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
         HashMapForLocalRes.put("Walima Stage", R.drawable.walima);
         HashMapForLocalRes.put("Event-3", R.drawable.event3);
         HashMapForLocalRes.put("Event", R.drawable.event);
-        HashMapForLocalRes.put("Wedding Hall-3", R.drawable.hall3);
-        HashMapForLocalRes.put("Wedding Hall-4", R.drawable.hall4);
-        HashMapForLocalRes.put("Wedding Hall-5", R.drawable.hall5);
-        HashMapForLocalRes.put("Wedding-Hall", R.drawable.hall);
+        HashMapForLocalRes.put("Wedding Decoration", R.drawable.hall3);
+        HashMapForLocalRes.put("Wedding Hall-3", R.drawable.hall4);
+        HashMapForLocalRes.put("Wedding Hall-4", R.drawable.hall5);
+        HashMapForLocalRes.put("Wedding Hall", R.drawable.hall);
         HashMapForLocalRes.put("Mehfil-e-Melaad Stage", R.drawable.mehfil);
         HashMapForLocalRes.put("Wedding Hall-2", R.drawable.hall2);
+
     }
 
     @Override
@@ -121,6 +155,6 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) {
+    public void onPageScrollStateChanged(final int state) {
     }
 }
