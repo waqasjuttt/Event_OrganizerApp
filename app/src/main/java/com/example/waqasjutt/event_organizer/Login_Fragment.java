@@ -231,7 +231,6 @@ public class Login_Fragment extends Fragment implements View.OnClickListener {
 
         // Check patter for email id
         Pattern p = Pattern.compile(Utils.Email_Format);
-
         Matcher m = p.matcher(getEmail);
 
         // Check for both field is empty or not

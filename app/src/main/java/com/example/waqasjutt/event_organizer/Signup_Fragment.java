@@ -49,7 +49,6 @@ import butterknife.ButterKnife;
 public class Signup_Fragment extends Fragment implements View.OnClickListener {
 
     private View view;
-    private int count = 0;
 
     @Bind(R.id.et_Fname)
     EditText et_Fname;
@@ -98,8 +97,8 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
     private FragmentTransaction fragmentTransaction;
     private LinearLayout Signup_Layout;
     private Animation shakeAnimation;
-    private int i = 1;
     private String strGender;
+    private int countMobileNumber = 1, countTelephoneNumber = 1, countCNIC = 1;
 
     public Signup_Fragment() {
         // Required empty public constructor
@@ -428,18 +427,25 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
             et_mobileNumber.startAnimation(shakeAnimation);
             Line_Mobile.startAnimation(shakeAnimation);
             et_mobileNumber.setError("Space are not allowed.");
-        } else if (getMobileNumber.length() <= 10) {
+        } else if (!getMobileNumber.startsWith("03")) {
             Mobile_layout.startAnimation(shakeAnimation);
             et_mobileNumber.startAnimation(shakeAnimation);
             Line_Mobile.startAnimation(shakeAnimation);
-            count = count + 1;
-            et_mobileNumber.setError("Enter valid phone number.");
-        } else if (count >= 2 &&
-                getMobileNumber.length() <= 10) {
-            Mobile_layout.startAnimation(shakeAnimation);
-            et_mobileNumber.startAnimation(shakeAnimation);
-            Line_Mobile.startAnimation(shakeAnimation);
-            et_mobileNumber.setError("Enter 11 digits phone number.");
+            et_mobileNumber.setError("Enter a valid mobile number start with 03.");
+        } else if (getMobileNumber.length() <= 10 || getMobileNumber.length() >= 12) {
+            if ((countMobileNumber > 2) &&
+                    (getMobileNumber.length() <= 10) || getMobileNumber.length() >= 12) {
+                Mobile_layout.startAnimation(shakeAnimation);
+                et_mobileNumber.startAnimation(shakeAnimation);
+                Line_Mobile.startAnimation(shakeAnimation);
+                et_mobileNumber.setError("Enter 11 digits phone number.");
+            } else {
+                Mobile_layout.startAnimation(shakeAnimation);
+                et_mobileNumber.startAnimation(shakeAnimation);
+                Line_Mobile.startAnimation(shakeAnimation);
+                et_mobileNumber.setError("Enter valid phone number.");
+            }
+            countMobileNumber++;
         } else {
             et_mobileNumber.setError(null);
         }
@@ -455,45 +461,57 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
             et_CNIC.startAnimation(shakeAnimation);
             Line_CNIC.startAnimation(shakeAnimation);
             et_CNIC.setError("Space are not allowed.");
-        } else if (getCNIC.length() <= 12) {
-            CNIC_layout.startAnimation(shakeAnimation);
-            et_CNIC.startAnimation(shakeAnimation);
-            Line_CNIC.startAnimation(shakeAnimation);
-            count = count + 1;
-            et_CNIC.setError("Enter valid CNIC number.");
-        } else if (count >= 2 &&
-                getCNIC.length() <= 12) {
-            CNIC_layout.startAnimation(shakeAnimation);
-            et_CNIC.startAnimation(shakeAnimation);
-            Line_CNIC.startAnimation(shakeAnimation);
-            et_CNIC.setError("Enter 13 digits CNIC number.");
-        } else if (!getCNIC.toString().startsWith("3")) {
+        } else if (!getCNIC.startsWith("3")) {
             CNIC_layout.startAnimation(shakeAnimation);
             et_CNIC.startAnimation(shakeAnimation);
             Line_CNIC.startAnimation(shakeAnimation);
             et_CNIC.setError("First digit should be 3.");
+        } else if (getCNIC.length() <= 12 || getCNIC.length() >= 14) {
+            if ((countCNIC > 3) &&
+                    (getCNIC.length() <= 12) || getCNIC.length() >= 14) {
+                CNIC_layout.startAnimation(shakeAnimation);
+                et_CNIC.startAnimation(shakeAnimation);
+                Line_CNIC.startAnimation(shakeAnimation);
+                et_CNIC.setError("Enter 13 digits CNIC number.");
+            } else {
+                CNIC_layout.startAnimation(shakeAnimation);
+                et_CNIC.startAnimation(shakeAnimation);
+                Line_CNIC.startAnimation(shakeAnimation);
+                et_CNIC.setError("Enter valid CNIC number.");
+            }
+            countCNIC++;
         } else {
             et_CNIC.setError(null);
         }
 
         // Check if Telephone Number is valid or not
-        if (getTelephone.contains(" ")) {
+        if (getTelephone.isEmpty()) {
+            countTelephoneNumber = 0;
+        } else if (getTelephone.contains(" ")) {
             Telephone_layout.startAnimation(shakeAnimation);
             et_Telephone.startAnimation(shakeAnimation);
             Line_Telephone.startAnimation(shakeAnimation);
             et_Telephone.setError("Space are not allowed.");
-        } else if (getTelephone.length() <= 10 && !getTelephone.isEmpty()) {
+        } else if (!getTelephone.startsWith("042")) {
             Telephone_layout.startAnimation(shakeAnimation);
             et_Telephone.startAnimation(shakeAnimation);
             Line_Telephone.startAnimation(shakeAnimation);
-            count = count + 1;
-            et_Telephone.setError("Enter valid telephone number.");
-        } else if (count > 1 &&
-                getTelephone.length() <= 10) {
-            Telephone_layout.startAnimation(shakeAnimation);
-            et_Telephone.startAnimation(shakeAnimation);
-            Line_Telephone.startAnimation(shakeAnimation);
-            et_Telephone.setError("Enter 11 digits telephone number.");
+            et_Telephone.setError("Enter valid telephone number start with 042.");
+        } else if ((getTelephone.length() <= 10)
+                || (getTelephone.length() >= 12)) {
+            if ((countTelephoneNumber > 2) &&
+                    (getTelephone.length() <= 10 || getTelephone.length() >= 12)) {
+                Telephone_layout.startAnimation(shakeAnimation);
+                et_Telephone.startAnimation(shakeAnimation);
+                Line_Telephone.startAnimation(shakeAnimation);
+                et_Telephone.setError("Enter 11 digits telephone number.");
+            } else {
+                Telephone_layout.startAnimation(shakeAnimation);
+                et_Telephone.startAnimation(shakeAnimation);
+                Line_Telephone.startAnimation(shakeAnimation);
+                et_Telephone.setError("Enter valid telephone number.");
+            }
+            countTelephoneNumber++;
         } else {
             et_Telephone.setError(null);
         }
