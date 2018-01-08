@@ -1,6 +1,7 @@
 package com.example.waqasjutt.event_organizer;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -38,6 +39,7 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
         fragmentManager = getActivity().getSupportFragmentManager();
 
         sliderLayout = (SliderLayout) view.findViewById(R.id.slider);
+
         //Call this method to add images from local drawable folder .
         AddImageUrlFormLocalRes();
 
@@ -110,7 +112,11 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
 
 //        ((MainActivity) getActivity()).setActionBarTitle("Promo Codes");
         if (!SharedPrefManager.getInstance(getActivity()).isLoggedIn()) {
-            new MainActivity().finishAffinity();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                new MainActivity().finishAffinity();
+            } else {
+                new MainActivity().finish();
+            }
             fragmentManager.beginTransaction()
                     .replace(R.id.frameContainer,
                             new HomePage_Fragment(),

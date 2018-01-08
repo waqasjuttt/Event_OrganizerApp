@@ -217,8 +217,17 @@ public class Login_Fragment extends Fragment implements View.OnClickListener {
                         .commit();
                 break;
             case R.id.forgot_password:
-                browserIntent.setData(Uri.parse(Paths.URL_FORGET_PASSWORD));
-                startActivity(browserIntent);
+//                browserIntent.setData(Uri.parse(Paths.URL_FORGET_PASSWORD));
+//                startActivity(browserIntent);
+                fragmentTransaction =
+                        fragmentManager
+                                .beginTransaction()
+                                .setCustomAnimations(R.anim.left_out, R.anim.right_out)
+                                .replace(R.id.frameContainer,
+                                        new ForgetPassword_Fragment());
+                fragmentTransaction
+                        .addToBackStack(null)
+                        .commit();
                 break;
         }
     }
