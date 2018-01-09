@@ -61,6 +61,7 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
     private static final int allowedDOB = 18;
     protected static Button btnDOB;
     protected static TextView tvDOB;
+    protected static String strDt;
 ////////////////////////////////////////////////////////////
 
     private View view;
@@ -236,17 +237,15 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.btn_DOB:
-//                showDatePicker();
-//                break;
-            case R.id.signUpBtn:
-                // Call checkValidation method
-                checkValidation();
-                break;
 
             case R.id.btn_select_dob:
                 datePickerFragment = new DatePickerFragment();
                 datePickerFragment.show(getActivity().getSupportFragmentManager(), "Select Your Birthday");
+                break;
+
+            case R.id.signUpBtn:
+                // Call checkValidation method
+                checkValidation();
                 break;
 
             case R.id.already_user:
@@ -275,7 +274,6 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
 //        final String getDD = et_dd.getText().toString();
 //        final String getMM = et_mm.getText().toString();
 //        final String getYYYY = et_yyyy.getText().toString();
-        final String getDOB = tvDOB.getText().toString();
         final String getMobileNumber = et_mobileNumber.getText().toString();
         final String getPassword = et_password.getText().toString();
         final String getConfirmPassword = et_ConfirmPassword.getText().toString();
@@ -310,7 +308,6 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
             new CustomToast().Show_Toast(getActivity(), view, "Required fields are missing.");
             TastyToast.makeText(getActivity(), "Try again",
                     TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
-            CheckBoxValues.clear();
         }
         // Gender is selected
         else if (!male.isChecked() && !female.isChecked()) {
@@ -391,12 +388,11 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
 //            et_dob.setError(null);
 //        }
 
-        if (getDOB.toString().contains("Pick your date of birth"))
-        {
+        if (tvDOB.getText().toString().contains("Pick your date of birth")) {
             DOB_LinearLayout.startAnimation(shakeAnimation);
             btnDOB.startAnimation(shakeAnimation);
             Line_DOB.startAnimation(shakeAnimation);
-            Toast.makeText(getActivity(),"Pick you DOB",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Pick you DOB", Toast.LENGTH_SHORT).show();
         }
 
         // Check if email id is valid or not
@@ -418,7 +414,6 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
         } else {
             et_Email.setError(null);
         }
-
 
         // Check if Mobile Number is valid or not
         if (getMobileNumber.isEmpty()) {
@@ -543,11 +538,11 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
             et_Address.startAnimation(shakeAnimation);
             Line_Address.startAnimation(shakeAnimation);
             et_Address.setError("Enter your address.");
-        } else if (getAddress.length() >= 50) {
+        } else if (getAddress.length() >= 70) {
             Address_layout.startAnimation(shakeAnimation);
             et_Address.startAnimation(shakeAnimation);
             Line_Address.startAnimation(shakeAnimation);
-            et_Address.setError("Only 50 characters allow.");
+            et_Address.setError("Only 70 characters allow.");
         } else {
             et_Address.setError(null);
         }
@@ -611,17 +606,32 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
         }
 
         // Else do signup or do your stuff
-        if (!et_Fname.getText().toString().isEmpty() &&
-                !et_Lname.getText().toString().isEmpty() &&
-                !et_Email.getText().toString().isEmpty() &&
-                !et_CNIC.getText().toString().isEmpty() &&
+        if ((!et_Fname.getText().toString().isEmpty()
+                && !(getFirstName.length() >= 15)) &&
+                (!(getLastName.length() >= 15)
+                        && !et_Lname.getText().toString().isEmpty()) &&
+                (!et_Email.getText().toString().isEmpty()
+                        && !getEmailId.contains(" ")) &&
+                (!et_CNIC.getText().toString().isEmpty()
+                        && !et_CNIC.getText().toString().contains(" ")
+                        && getCNIC.startsWith("3")
+                        && getCNIC.length() == 13) &&
                 !tvDOB.getText().toString().contains("Pick your date of birth") &&
                 (male.isChecked() || female.isChecked()) &&
-                !et_Address.getText().toString().isEmpty() &&
-                !et_password.getText().toString().isEmpty() &&
-                !et_ConfirmPassword.getText().toString().isEmpty() &&
-                et_ConfirmPassword.getText().toString().equals(getPassword) &&
-                !et_mobileNumber.getText().toString().isEmpty() &&
+                (!et_Address.getText().toString().isEmpty()
+                        && getAddress.length() <= 70) &&
+                (!et_password.getText().toString().isEmpty()
+                        && getPassword.length() >= 4) &&
+                (!et_ConfirmPassword.getText().toString().isEmpty()
+                        && et_ConfirmPassword.getText().toString().equals(getPassword)
+                        && getConfirmPassword.length() >= 4) &&
+                (!et_mobileNumber.getText().toString().isEmpty()
+                        && !getMobileNumber.contains(" ")
+                        && getMobileNumber.startsWith("03")
+                        && getMobileNumber.length() == 11) &&
+                (!getTelephone.contains(" ")
+                        && getTelephone.startsWith("042")
+                        && getTelephone.length() == 11) &&
                 terms_conditions.isChecked()) {
             TastyToast.makeText(getActivity(), "Do SignUp.",
                     TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
@@ -669,7 +679,7 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
 //                    params.put("email", getEmailId);
 //                    params.put("mobile_number", getMobileNumber);
 //                    params.put("cnic", getCNIC);
-////                    params.put("date_of_birth", getDOB);
+//                    params.put("date_of_birth", strDt);
 //                    params.put("telephone_number", getTelephone);
 //                    params.put("geneder", strGender);
 //                    params.put("interests", CheckBoxValues.toString());
@@ -711,8 +721,8 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
             Calendar currentDate = Calendar.getInstance();
             long currentDateInMilliSeconds = currentDate.getTimeInMillis();
 
-            SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            String strDt = simpleDate.format(dateTime.getTime());
+            SimpleDateFormat simpleDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            strDt = simpleDate.format(dateTime.getTime());
 
             if (selectDateInMilliSeconds > currentDateInMilliSeconds) {
                 Toast.makeText(getActivity(), "Your birthday date must come before taday's date", Toast.LENGTH_LONG).show();
