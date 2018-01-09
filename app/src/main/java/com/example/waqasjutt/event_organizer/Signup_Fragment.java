@@ -633,63 +633,63 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
                         && getTelephone.startsWith("042")
                         && getTelephone.length() == 11) &&
                 terms_conditions.isChecked()) {
-            TastyToast.makeText(getActivity(), "Do SignUp.",
-                    TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+//            TastyToast.makeText(getActivity(), "Do SignUp.",
+//                    TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
-//            progressDialog.setMessage("Registering user...");
-//            progressDialog.show();
-//            StringRequest stringRequest = new StringRequest(Request.Method.POST,
-//                    Paths.URL_SIGNUP,
-//                    new Response.Listener<String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            progressDialog.dismiss();
-//                            try {
-//                                JSONObject jsonObject = new JSONObject(response);
-//                                if (jsonObject.getString("error") == "false") {
-//                                    TastyToast.makeText(getActivity(), jsonObject.getString("message")
-//                                            , Toast.LENGTH_LONG, TastyToast.SUCCESS).show();
-//                                    fragmentManager
-//                                            .beginTransaction()
-//                                            .setCustomAnimations(R.anim.right_enter, R.anim.left_out)
-//                                            .replace(R.id.frameContainer, new Login_Fragment(),
-//                                                    Utils.Login_Fragment).commit();
-//                                } else if (jsonObject.getString("error") == "true") {
-//                                    TastyToast.makeText(getActivity(), jsonObject.getString("message")
-//                                            , Toast.LENGTH_LONG, TastyToast.ERROR).show();
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    },
-//                    new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            progressDialog.hide();
-//                            TastyToast.makeText(getActivity(), error.getMessage()
-//                                    , Toast.LENGTH_SHORT, TastyToast.ERROR).show();
-//                        }
-//                    }) {
-//                @Override
-//                protected Map<String, String> getParams() throws AuthFailureError {
-//                    Map<String, String> params = new HashMap<>();
-//                    params.put("first_name", getFirstName);
-//                    params.put("last_name", getLastName);
-//                    params.put("email", getEmailId);
-//                    params.put("mobile_number", getMobileNumber);
-//                    params.put("cnic", getCNIC);
-//                    params.put("date_of_birth", strDt);
-//                    params.put("telephone_number", getTelephone);
-//                    params.put("geneder", strGender);
-//                    params.put("interests", CheckBoxValues.toString());
-//                    params.put("password", getConfirmPassword);
-//                    params.put("address", getAddress);
-//                    params.put("about", getAbout);
-//                    return params;
-//                }
-//            };
-//            RequestHandler.getInstance(getActivity()).addToRequestQueue(stringRequest);
+            progressDialog.setMessage("Registering user...");
+            progressDialog.show();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    Paths.URL_SIGNUP,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            progressDialog.dismiss();
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if (jsonObject.getString("error") == "false") {
+                                    TastyToast.makeText(getActivity(), jsonObject.getString("message")
+                                            , Toast.LENGTH_LONG, TastyToast.SUCCESS).show();
+                                    fragmentManager
+                                            .beginTransaction()
+                                            .setCustomAnimations(R.anim.right_enter, R.anim.left_out)
+                                            .replace(R.id.frameContainer, new Login_Fragment(),
+                                                    Utils.Login_Fragment).commit();
+                                } else if (jsonObject.getString("error") == "true") {
+                                    TastyToast.makeText(getActivity(), jsonObject.getString("message")
+                                            , Toast.LENGTH_LONG, TastyToast.ERROR).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            progressDialog.hide();
+                            TastyToast.makeText(getActivity(), error.getMessage()
+                                    , Toast.LENGTH_SHORT, TastyToast.ERROR).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("first_name", getFirstName);
+                    params.put("last_name", getLastName);
+                    params.put("email", getEmailId);
+                    params.put("mobile_number", getMobileNumber);
+                    params.put("cnic", getCNIC);
+                    params.put("date_of_birth", strDt);
+                    params.put("telephone_number", getTelephone);
+                    params.put("geneder", strGender);
+                    params.put("interests", CheckBoxValues.toString());
+                    params.put("password", getConfirmPassword);
+                    params.put("address", getAddress);
+                    params.put("about", getAbout);
+                    return params;
+                }
+            };
+            RequestHandler.getInstance(getActivity()).addToRequestQueue(stringRequest);
         }
     }
 
@@ -747,7 +747,7 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
                 return;
             } else {
                 // move to another activity page
-                Toast.makeText(getActivity(), "You are allowed to use this app \nYour Age is: " + returnedYear, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "You are allowed to use this app \nYour Age is: " + returnedYear, Toast.LENGTH_LONG).show();
                 tvDOB.setText("Your DOB is: " + strDt);
             }
         }
