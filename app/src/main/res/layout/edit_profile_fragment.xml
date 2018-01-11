@@ -230,27 +230,49 @@
             android:layout_marginLeft="10dp"
             android:background="#000000" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/Gender_layout"
+        <RadioGroup
+            android:id="@+id/radioGrp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/et_Gender"
-                android:layout_width="fill_parent"
+            <TextView
+                android:id="@+id/tv_gender"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/female_signup"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:hint=" Gender"
-                android:inputType="text"
-                android:padding="10dp"
-                android:singleLine="true"
-                android:textSize="16sp" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:layout_weight="2"
+                android:text="Gender:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/radioM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="49"
+                android:checked="true"
+                android:drawableRight="@drawable/male_signup"
+                android:text="male"
+                android:textSize="14dp" />
+
+            <RadioButton
+                android:id="@+id/radioF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="49"
+                android:checked="false"
+                android:drawableRight="@drawable/female_signup"
+                android:text="Female"
+                android:textSize="14dp" />
+
+        </RadioGroup>
 
         <View
             android:id="@+id/Line_Gender"

@@ -143,7 +143,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
         et_About.setText(SharedPrefManager.getInstance(getActivity()).getUserAbout());
 
         if (SharedPrefManager.getInstance(getActivity()).getUserAbout().isEmpty()) {
-            et_About.setText("Tell about your self");
+            et_About.setText("");
             et_About.setTextColor(getResources().getColor(R.color.gray));
         }
         if (!SharedPrefManager.getInstance(getActivity()).getUserAbout().isEmpty()) {
@@ -182,7 +182,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
         CNIC_layout = (TextInputLayout) view.findViewById(R.id.CNIC_layout);
         DOB_LinearLayout = (LinearLayout) view.findViewById(R.id.DOB_Linearlylayout);
         Telephone_layout = (TextInputLayout) view.findViewById(R.id.Telephone_layout);
-        Gender_layout = (TextInputLayout) view.findViewById(R.id.Gender_layout);
+//        Gender_layout = (TextInputLayout) view.findViewById(R.id.Gender_layout);
         Address_layout = (TextInputLayout) view.findViewById(R.id.Address_layout);
         About_layout = (TextInputLayout) view.findViewById(R.id.About_layout);
 
