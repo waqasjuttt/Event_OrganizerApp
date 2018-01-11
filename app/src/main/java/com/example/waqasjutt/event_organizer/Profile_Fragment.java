@@ -6,10 +6,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -28,9 +30,10 @@ public class Profile_Fragment extends Fragment {
     private TextView domain;
     private TextView telephone;
     private TextView address;
-    //    String leftBraket = "[";
-    String strBrakets;
+    private String strBrakets;
+    private Button btnEditProfile;
 
+    private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
     public Profile_Fragment() {
@@ -63,6 +66,7 @@ public class Profile_Fragment extends Fragment {
         about = (TextView) view.findViewById(R.id.tvAbout);
         telephone = (TextView) view.findViewById(R.id.tvTelephone);
         address = (TextView) view.findViewById(R.id.tvAddress);
+        btnEditProfile = (Button) view.findViewById(R.id.btn_EditProfile);
 
         profileName.setText(SharedPrefManager.getInstance(getActivity()).getUserFirstName() +
                 " " + SharedPrefManager.getInstance(getActivity()).getUserLastName());
@@ -96,6 +100,21 @@ public class Profile_Fragment extends Fragment {
         ((MainActivity) getActivity()).boomMenuButton.setVisibility(View.GONE);
         ((MainActivity) getActivity()).mTitleTextView.setVisibility(View.GONE);
         ((MainActivity) getActivity()).setActionBarTitle(" Profile");
+
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction =
+                        fragmentManager
+                                .beginTransaction()
+                                .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
+                                .replace(R.id.frameContainer,
+                                        new EditProfile_Fragment());
+                fragmentTransaction
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         return view;
     }
