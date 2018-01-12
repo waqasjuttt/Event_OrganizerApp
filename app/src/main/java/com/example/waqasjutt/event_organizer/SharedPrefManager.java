@@ -36,14 +36,14 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean userLoginTest(int id, String firstName,String LastName, String email,
+    public boolean userLoginTest(String id, String firstName, String LastName, String email,
                                  String mobile, String cnic, String dob,
                                  String gender, String interest, String address,
                                  String telephone, String about, String domain) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt(KEY_USER_ID, id);
+        editor.putString(KEY_USER_ID, id);
         editor.putString(KEY_USER_EMAIL, email);
         editor.putString(KEY_FIRST_NAME, firstName);
         editor.putString(KEY_LAST_NAME, LastName);
@@ -77,6 +77,11 @@ public class SharedPrefManager {
         editor.clear();
         editor.apply();
         return true;
+    }
+
+    public String getUserID() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_USER_ID, null);
     }
 
     public String getUserFirstName() {

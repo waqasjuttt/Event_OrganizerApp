@@ -342,7 +342,7 @@ public class Login_Fragment extends Fragment implements View.OnClickListener {
                                 if (obj.getString("error") == "false") {
                                     SharedPrefManager.getInstance(getActivity())
                                             .userLoginTest(
-                                                    obj.getInt("id"),
+                                                    obj.getString("id"),
                                                     obj.getString("first_name"),
                                                     obj.getString("last_name"),
                                                     obj.getString("email"),

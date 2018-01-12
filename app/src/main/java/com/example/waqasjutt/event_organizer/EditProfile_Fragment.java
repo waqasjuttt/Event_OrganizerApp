@@ -4,6 +4,7 @@ package com.example.waqasjutt.event_organizer;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
@@ -78,7 +79,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
     EditText et_Telephone;
     private RadioGroup radioGroup;
     private RadioButton male, female;
-//    private EditText et_Gender, female;
+    //    private EditText et_Gender, female;
     private CheckBox checkBox_cricket, checkBox_collecting, checkBox_reading;
     @Bind(R.id.et_Address)
     EditText et_Address;
@@ -87,7 +88,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
 
     MainActivity mainActivity = new MainActivity();
 
-    protected static LinearLayout DOB_LinearLayout;
+    protected static LinearLayout DOB_LinearLayout, EditProfile_layout;
     private TextInputLayout Gender_layout, Email_layout, FirstName_layout, LastName_layout, CNIC_layout, Mobile_layout, Telephone_layout, Address_layout, About_layout;
     private View Line_Email, Line_FirstName, Line_LastName, Line_Mobile, Line_CNIC, Line_Telephone, Line_Address, Line_About, Line_Gender;
     protected static View Line_DOB;
@@ -101,6 +102,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
     protected static Animation shakeAnimation;
     private String strGender;
     private int countMobileNumber = 1, countTelephoneNumber = 1, countCNIC = 1;
+    private String strID;
 
     public EditProfile_Fragment() {
         // Required empty public constructor
@@ -131,6 +133,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
     }
 
     private void UserData() {
+        strID = SharedPrefManager.getInstance(getActivity()).getUserID();
         et_Fname.setText(SharedPrefManager.getInstance(getActivity()).getUserFirstName());
         et_Lname.setText(SharedPrefManager.getInstance(getActivity()).getUserLastName());
         et_Email.setText(SharedPrefManager.getInstance(getActivity()).getUserEmail());
@@ -142,12 +145,30 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
         et_Address.setText(SharedPrefManager.getInstance(getActivity()).getUserAddress());
         et_About.setText(SharedPrefManager.getInstance(getActivity()).getUserAbout());
 
-        if (SharedPrefManager.getInstance(getActivity()).getUserAbout().isEmpty()) {
-            et_About.setText("");
-            et_About.setTextColor(getResources().getColor(R.color.gray));
+        if (!SharedPrefManager.getInstance(getActivity()).getUserDOB().contains("Pick your date of birth")) {
+            strDt = SharedPrefManager.getInstance(getActivity()).getUserDOB();
         }
-        if (!SharedPrefManager.getInstance(getActivity()).getUserAbout().isEmpty()) {
-            et_About.setText(SharedPrefManager.getInstance(getActivity()).getUserAbout());
+
+        if (SharedPrefManager.getInstance(getActivity())
+                .getUserGender().contains("male")) {
+            checkBox_cricket.setChecked(true);
+        }
+        if (SharedPrefManager.getInstance(getActivity())
+                .getUserGender().contains("female")) {
+            checkBox_collecting.setChecked(true);
+        }
+
+        if (SharedPrefManager.getInstance(getActivity())
+                .getUserInterest().contains("Cricket")) {
+            checkBox_cricket.setChecked(true);
+        }
+        if (SharedPrefManager.getInstance(getActivity())
+                .getUserInterest().contains("Collecting")) {
+            checkBox_collecting.setChecked(true);
+        }
+        if (SharedPrefManager.getInstance(getActivity())
+                .getUserInterest().contains("Reading")) {
+            checkBox_reading.setChecked(true);
         }
     }
 
@@ -162,17 +183,19 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
         et_Email = (EditText) view.findViewById(R.id.et_Email);
         et_CNIC = (EditText) view.findViewById(R.id.et_CNIC);
 //        et_Gender = (EditText) view.findViewById(R.id.et_Gender);
-
-        checkBox_cricket = (CheckBox) view.findViewById(R.id.cb_cricket);
-        checkBox_collecting = (CheckBox) view.findViewById(R.id.cb_Collecting);
-        checkBox_reading = (CheckBox) view.findViewById(R.id.cb_Reading);
+        male = (RadioButton) view.findViewById(R.id.radioM);
+        female = (RadioButton) view.findViewById(R.id.radioF);
+        radioGroup = (RadioGroup) view.findViewById(R.id.radioGrp);
+        checkBox_cricket = (CheckBox) view.findViewById(R.id.cb_cricketF);
+        checkBox_collecting = (CheckBox) view.findViewById(R.id.cb_CollectingF);
+        checkBox_reading = (CheckBox) view.findViewById(R.id.cb_ReadingF);
         et_mobileNumber = (EditText) view.findViewById(R.id.et_mobileNumber);
         et_Telephone = (EditText) view.findViewById(R.id.et_Telephone);
         et_Address = (EditText) view.findViewById(R.id.et_Address);
         et_About = (EditText) view.findViewById(R.id.et_About);
         btnDOB = (Button) view.findViewById(R.id.btn_select_dob);
         tvDOB = (TextView) view.findViewById(R.id.tv_Show_Date);
-        btnEditProfile = (Button) view.findViewById(R.id.signUpBtn);
+        btnEditProfile = (Button) view.findViewById(R.id.btnEditProfile);
 
         //Layout ids call
         FirstName_layout = (TextInputLayout) view.findViewById(R.id.FirstName_layout);
@@ -185,6 +208,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
 //        Gender_layout = (TextInputLayout) view.findViewById(R.id.Gender_layout);
         Address_layout = (TextInputLayout) view.findViewById(R.id.Address_layout);
         About_layout = (TextInputLayout) view.findViewById(R.id.About_layout);
+        EditProfile_layout = (LinearLayout) view.findViewById(R.id.EditProfile_layout);
 
         //View Lines call
         Line_FirstName = (View) view.findViewById(R.id.Line_Fname);
@@ -208,24 +232,24 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
     // Set Listeners
     private void setListeners() {
         //For Profile Edited
-//        btnEditProfile.setOnClickListener(this);
+        btnEditProfile.setOnClickListener(this);
 //        //For Date of Birth
-//        btnDOB.setOnClickListener(this);
+        btnDOB.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
-//            case R.id.btn_select_dob:
-//                datePickerFragment = new DatePickerFragment();
-//                datePickerFragment.show(getActivity().getSupportFragmentManager(), "Select Your Birthday");
-//                break;
-//
-//            case R.id.btnEditProfile:
-//                // Call checkValidation method
-//                checkValidation();
-//                break;
+            case R.id.btn_select_dob:
+                datePickerFragment = new DatePickerFragment();
+                datePickerFragment.show(getActivity().getSupportFragmentManager(), "Select Your Birthday");
+                break;
+
+            case R.id.btnEditProfile:
+                // Call checkValidation method
+                checkValidation();
+                break;
         }
     }
 
@@ -253,8 +277,8 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
                 && (tvDOB.getText().toString().contains("Pick your date of birth"))
                 && (getAddress.isEmpty() || getAddress.equals("") || getAddress.length() == 0)
                 && (getCNIC.isEmpty() || getCNIC.equals("") || getCNIC.length() == 0)
-                ) {
-            EditProfile_Layout.startAnimation(shakeAnimation);
+                && (!male.isChecked() && !female.isChecked())) {
+            EditProfile_layout.startAnimation(shakeAnimation);
             new CustomToast().Show_Toast(getActivity(), view, "Required fields are missing.");
             TastyToast.makeText(getActivity(), "Try again",
                     TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
@@ -460,6 +484,13 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
             et_About.setError(null);
         }
 
+        if (male.isChecked()) {
+            strGender = "male";
+        } else if (female.isChecked()) {
+            strGender = "Female";
+        }
+
+
         // Else do signup or do your stuff
         if ((!et_Fname.getText().toString().isEmpty()
                 && !(getFirstName.length() >= 15)) &&
@@ -472,71 +503,76 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
                         && getCNIC.startsWith("3")
                         && getCNIC.length() == 13) &&
                 !tvDOB.getText().toString().contains("Pick your date of birth") &&
+                (male.isChecked() || female.isChecked()) &&
                 (!et_Address.getText().toString().isEmpty()
                         && getAddress.length() <= 70) &&
                 (!et_mobileNumber.getText().toString().isEmpty()
                         && !getMobileNumber.contains(" ")
                         && getMobileNumber.startsWith("03")
                         && getMobileNumber.length() == 11) &&
-                (!getTelephone.contains(" ")
+                (getTelephone.toString().isEmpty()
+                        || (!getTelephone.toString().isEmpty()
                         && getTelephone.startsWith("042")
-                        && getTelephone.length() == 11)) {
-            TastyToast.makeText(getActivity(), "Profile Edited.",
-                    TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                        && !getTelephone.contains(" ")
+                        && getTelephone.length() == 11))) {
 
-//            progressDialog.setMessage("Registering user...");
-//            progressDialog.show();
-//            StringRequest stringRequest = new StringRequest(Request.Method.POST,
-//                    Paths.URL_SIGNUP,
-//                    new Response.Listener<String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            progressDialog.dismiss();
-//                            try {
-//                                JSONObject jsonObject = new JSONObject(response);
-//                                if (jsonObject.getString("error") == "false") {
-//                                    TastyToast.makeText(getActivity(), jsonObject.getString("message")
-//                                            , Toast.LENGTH_LONG, TastyToast.SUCCESS).show();
-//                                    fragmentManager
-//                                            .beginTransaction()
-//                                            .setCustomAnimations(R.anim.right_enter, R.anim.left_out)
-//                                            .replace(R.id.frameContainer, new Login_Fragment(),
-//                                                    Utils.Login_Fragment).commit();
-//                                } else if (jsonObject.getString("error") == "true") {
-//                                    TastyToast.makeText(getActivity(), jsonObject.getString("message")
-//                                            , Toast.LENGTH_LONG, TastyToast.ERROR).show();
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    },
-//                    new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            progressDialog.hide();
-//                            TastyToast.makeText(getActivity(), error.getMessage()
-//                                    , Toast.LENGTH_SHORT, TastyToast.ERROR).show();
-//                        }
-//                    }) {
-//                @Override
-//                protected Map<String, String> getParams() throws AuthFailureError {
-//                    Map<String, String> params = new HashMap<>();
-//                    params.put("first_name", getFirstName);
-//                    params.put("last_name", getLastName);
-//                    params.put("email", getEmailId);
-//                    params.put("mobile_number", getMobileNumber);
-//                    params.put("cnic", getCNIC);
-//                    params.put("date_of_birth", strDt);
-//                    params.put("telephone_number", getTelephone);
-//                    params.put("geneder", strGender);
-//                    params.put("interests", CheckBoxValues.toString());
-//                    params.put("address", getAddress);
-//                    params.put("about", getAbout);
-//                    return params;
-//                }
-//            };
-//            RequestHandler.getInstance(getActivity()).addToRequestQueue(stringRequest);
+//            TastyToast.makeText(getActivity(), "Updated Successfully.",
+//                    TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+            progressDialog.setMessage("User updating...");
+            progressDialog.show();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    Paths.URL_EDITPROFILE,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            progressDialog.dismiss();
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                if (jsonObject.getString("error") == "false") {
+                                    TastyToast.makeText(getActivity(), jsonObject.getString("message")
+                                            , Toast.LENGTH_LONG, TastyToast.SUCCESS).show();
+                                    fragmentManager
+                                            .beginTransaction()
+                                            .setCustomAnimations(R.anim.right_enter, R.anim.left_out)
+                                            .replace(R.id.frameContainer, new Login_Fragment(),
+                                                    Utils.HomePage_Fragment).commit();
+                                } else if (jsonObject.getString("error") == "true") {
+                                    TastyToast.makeText(getActivity(), jsonObject.getString("message")
+                                            , Toast.LENGTH_LONG, TastyToast.ERROR).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            progressDialog.hide();
+                            TastyToast.makeText(getActivity(), error.getMessage()
+                                    , Toast.LENGTH_SHORT, TastyToast.ERROR).show();
+                        }
+                    }) {
+                @Override
+                public Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("id", strID);
+                    params.put("first_name", getFirstName);
+                    params.put("last_name", getLastName);
+                    params.put("email", getEmailId);
+                    params.put("mobile_number", getMobileNumber);
+                    params.put("cnic", getCNIC);
+                    params.put("date_of_birth", strDt);
+                    params.put("telephone_number", getTelephone);
+                    params.put("geneder", strGender);
+                    params.put("interests", CheckBoxValues.toString());
+                    params.put("address", getAddress);
+                    params.put("about", getAbout);
+                    return params;
+                }
+            };
+            RequestHandler.getInstance(getActivity()).addToRequestQueue(stringRequest);
         }
     }
 

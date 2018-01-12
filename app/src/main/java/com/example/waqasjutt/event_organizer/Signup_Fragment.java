@@ -629,11 +629,13 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
                         && !getMobileNumber.contains(" ")
                         && getMobileNumber.startsWith("03")
                         && getMobileNumber.length() == 11) &&
-                (!getTelephone.contains(" ")
+                (getTelephone.toString().isEmpty()
+                        || (!getTelephone.toString().isEmpty()
                         && getTelephone.startsWith("042")
-                        && getTelephone.length() == 11) &&
+                        && !getTelephone.contains(" ")
+                        && getTelephone.length() == 11)) &&
                 terms_conditions.isChecked()) {
-//            TastyToast.makeText(getActivity(), "Do SignUp.",
+//            TastyToast.makeText(getActivity(), "SignUp Successful.",
 //                    TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
             progressDialog.setMessage("Registering user...");
