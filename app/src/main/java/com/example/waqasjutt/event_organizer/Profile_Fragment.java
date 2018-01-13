@@ -1,6 +1,7 @@
 package com.example.waqasjutt.event_organizer;
 
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.sdsmdg.tastytoast.TastyToast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Profile_Fragment extends Fragment {
@@ -32,6 +47,7 @@ public class Profile_Fragment extends Fragment {
     private TextView address;
     private String strBrakets;
     private Button btnEditProfile;
+    private ProgressDialog progressDialog;
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
@@ -53,6 +69,9 @@ public class Profile_Fragment extends Fragment {
             ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Profile updating, Please wait...");
 
         profileName = (TextView) view.findViewById(R.id.tvProfileName);
         name = (TextView) view.findViewById(R.id.tvFirstName);
