@@ -250,15 +250,22 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
 
             case R.id.already_user:
                 // Replace already_user fragment
-                fragmentTransaction =
-                        fragmentManager
-                                .beginTransaction()
-                                .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
-                                .replace(R.id.frameContainer,
-                                        new Login_Fragment());
-                fragmentTransaction
-                        .addToBackStack(null)
-                        .commit();
+//                fragmentTransaction =
+//                        fragmentManager
+//                                .beginTransaction()
+//                                .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
+//                                .replace(R.id.frameContainer,
+//                                        new Login_Fragment());
+//                fragmentTransaction
+//                        .addToBackStack(null)
+//                        .commit();
+                fragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.left_out, R.anim.right_out)
+                        .replace(R.id.frameContainer, new Login_Fragment()).commit();
+                fragmentManager
+                        .popBackStack(null, FragmentManager
+                                .POP_BACK_STACK_INCLUSIVE);
                 break;
         }
     }

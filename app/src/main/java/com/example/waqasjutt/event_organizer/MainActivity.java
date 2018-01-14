@@ -89,9 +89,10 @@ public class MainActivity extends AppCompatActivity
 
         CustomDialog_Class customDialogClass = new CustomDialog_Class(this);
 
-        // Find the tag of HomePage_fragment
-        Fragment Test_Fragment = fragmentManager
-                .findFragmentByTag(Utils.Test_Fragment);
+        // Find the tag of fragments
+        Fragment LoginPage_Fragment = fragmentManager
+                .findFragmentByTag(Utils.Login_Fragment);
+
         Fragment HomePage_Fragment = fragmentManager
                 .findFragmentByTag(Utils.HomePage_Fragment);
 
@@ -195,9 +196,9 @@ public class MainActivity extends AppCompatActivity
                                     .commit();
                         } else if (buttonIndex == 1) {
                             Toast.makeText(context, "You clicked on " + strings[buttonIndex], Toast.LENGTH_SHORT).show();
-                        } else if(buttonIndex == 2){
+                        } else if (buttonIndex == 2) {
                             Toast.makeText(context, "You clicked on " + strings[buttonIndex], Toast.LENGTH_SHORT).show();
-                        }else if (buttonIndex == 3) {
+                        } else if (buttonIndex == 3) {
                             Toast.makeText(context, "You clicked on " + strings[buttonIndex], Toast.LENGTH_SHORT).show();
                             SharedPrefManager.getInstance(MainActivity.this).logout();
                             fragmentTransaction = getSupportFragmentManager()

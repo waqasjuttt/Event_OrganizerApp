@@ -21,6 +21,5 @@ public class Utils {
     //Fragments Tags
     public static final String Login_Fragment = "Login_Fragment";
     public static final String Profile_Fragment = "Profile_Fragment";
-    public static final String Test_Fragment = "Test_Fragment";
     public static final String HomePage_Fragment = "HomePage_Fragment";
 }
