@@ -670,7 +670,7 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
                         public void onErrorResponse(VolleyError error) {
                             progressDialog.hide();
                             TastyToast.makeText(getActivity(), error.getMessage()
-                                    , Toast.LENGTH_SHORT, TastyToast.ERROR).show();
+                                    , Toast.LENGTH_LONG, TastyToast.ERROR).show();
                         }
                     }) {
                 @Override

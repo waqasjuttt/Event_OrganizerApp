@@ -7,12 +7,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +25,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -33,10 +38,15 @@ public class ForgetPassword_Fragment extends Fragment {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     private View view;
-    private EditText et_email;
+    @Bind(R.id.et_Email)
+    EditText et_email;
+    //    private EditText et_email;
     private Button btnnext;
     private ProgressDialog progressDialog;
     private String strMobile_Number;
+    private TextInputLayout Email_layout;
+    private View Line_Email;
+    private Animation shakeAnimation;
 
     public ForgetPassword_Fragment() {
         // Required empty public constructor
@@ -50,22 +60,63 @@ public class ForgetPassword_Fragment extends Fragment {
 
         fragmentManager = getActivity().getSupportFragmentManager();
 
+        ButterKnife.bind(getActivity());
+
+        //For Go Back to previous fragment
+        if (((MainActivity) getActivity()).getSupportActionBar() != null) {
+            ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        //For Boom Menu Button
+        ((MainActivity) getActivity()).boomMenuButton.setVisibility(View.GONE);
+        ((MainActivity) getActivity()).mTitleTextView.setVisibility(View.GONE);
+        ((MainActivity) getActivity()).setActionBarTitle(" Forget Password");
+
         et_email = (EditText) view.findViewById(R.id.editforgotuser);
         btnnext = (Button) view.findViewById(R.id.btnfornext);
+        Email_layout = (TextInputLayout) view.findViewById(R.id.Email_layout);
+        Line_Email = (View) view.findViewById(R.id.Line_Email);
+
+        // Load ShakeAnimation
+        shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.shake);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait...");
 
+        final String getEmailId = et_email.getText().toString();
+
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Check if email id is valid or not
                 if (et_email.getText().toString().trim().equals("")) {
-                    Toast.makeText(getActivity(), "Email should not empty", Toast.LENGTH_SHORT).show();
-                } else if (!et_email.getText().toString().isEmpty()) {
+                    Email_layout.startAnimation(shakeAnimation);
+                    et_email.startAnimation(shakeAnimation);
+                    Line_Email.startAnimation(shakeAnimation);
+                    et_email.setError("Enter your email address.");
+                } else if (getEmailId.contains(" ")) {
+                    Email_layout.startAnimation(shakeAnimation);
+                    et_email.startAnimation(shakeAnimation);
+                    Line_Email.startAnimation(shakeAnimation);
+                    et_email.setError("Space are not allowed.");
+                } else if (!et_email.getText().toString().trim().equals("")) {
                     RegisteredUsernameAsync registeredUsernameAsync = new RegisteredUsernameAsync(getActivity(),
                             et_email.getText().toString());
                     registeredUsernameAsync.execute();
+                } else {
+                    et_email.setError(null);
                 }
+
+//                if (et_email.getText().toString().trim().equals("")) {
+//                    Toast.makeText(getActivity(), "Email should not empty", Toast.LENGTH_SHORT).show();
+//                } else if (!et_email.getText().toString().isEmpty()) {
+//                    RegisteredUsernameAsync registeredUsernameAsync = new RegisteredUsernameAsync(getActivity(),
+//                            et_email.getText().toString());
+//                    registeredUsernameAsync.execute();
+//                }
             }
         });
 
