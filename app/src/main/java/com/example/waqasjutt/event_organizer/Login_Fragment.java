@@ -312,7 +312,8 @@ public class Login_Fragment extends Fragment implements View.OnClickListener {
 //                    .addToBackStack(null)
 //                    .commit();
 
-
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
             StringRequest stringRequest = new StringRequest(
                     Request.Method.POST,
                     URL.URL_LOGIN,

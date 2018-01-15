@@ -176,7 +176,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
     private void initViews() {
         fragmentManager = getActivity().getSupportFragmentManager();
 
-        EditProfile_Layout = (LinearLayout) view.findViewById(R.id.Signup_layout);
+        EditProfile_Layout = (LinearLayout) view.findViewById(R.id.EditProfile_layout);
         progressDialog = new ProgressDialog(getActivity());
         et_Fname = (EditText) view.findViewById(R.id.et_Fname);
         et_Lname = (EditText) view.findViewById(R.id.et_Lname);

@@ -1,6 +1,7 @@
 package com.example.waqasjutt.event_organizer;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,6 +49,7 @@ public class GetMobileCode_Fragment extends Fragment {
     private View Line_Mobile, Line_Code;
     private Animation shakeAnimation;
     private int countMobileNumber = 1;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onStart() {
@@ -72,6 +74,8 @@ public class GetMobileCode_Fragment extends Fragment {
         Code_Layout = (TextInputLayout) view.findViewById(R.id.Code_layout);
         Line_Mobile = (View) view.findViewById(R.id.Line_Mobile);
         Line_Code = (View) view.findViewById(R.id.Line_Code);
+
+        progressDialog = new ProgressDialog(getActivity());
 
         ButterKnife.bind(getActivity());
 
@@ -106,6 +110,8 @@ public class GetMobileCode_Fragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+                progressDialog.setMessage("Please wait...");
+                progressDialog.show();
 
                 phonenumber = editphone.getText().toString();
 
@@ -121,18 +127,22 @@ public class GetMobileCode_Fragment extends Fragment {
 
                                 @Override
                                 public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+                                    progressDialog.dismiss();
                                 }
 
                                 @Override
                                 public void onVerificationFailed(FirebaseException e) {
                                     Toast.makeText(getActivity(), "OnVerification Failed" +
                                             e.getMessage(), Toast.LENGTH_LONG).show();
+
+                                    progressDialog.dismiss();
                                 }
 
                                 @Override
                                 public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                     // super.onCodeSent(s, forceResendingToken);
                                     mVerificationId = s;
+                                    progressDialog.dismiss();
                                 }
 
                                 @Override
@@ -140,6 +150,7 @@ public class GetMobileCode_Fragment extends Fragment {
                                     // super.onCodeAutoRetrievalTimeOut(s);
                                     Toast.makeText(getActivity(), "On Code AutoRetrival Time out "
                                             , Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
                                 }
                             }
                     );
@@ -159,14 +170,20 @@ public class GetMobileCode_Fragment extends Fragment {
                         Mobile_layout.startAnimation(shakeAnimation);
                         editphone.startAnimation(shakeAnimation);
                         Line_Mobile.startAnimation(shakeAnimation);
-                        editphone.setError("Enter 11 digits phone number.");
+                        editphone.setError("Enter 11 digits mobile number.");
                     } else {
                         Mobile_layout.startAnimation(shakeAnimation);
                         editphone.startAnimation(shakeAnimation);
                         Line_Mobile.startAnimation(shakeAnimation);
-                        editphone.setError("Enter valid phone number.");
+                        editphone.setError("Enter valid mobile number.");
                     }
                     countMobileNumber++;
+                } else if (!phonenumber.equals(strMobile_Number)) {
+                    Mobile_layout.startAnimation(shakeAnimation);
+                    editphone.startAnimation(shakeAnimation);
+                    Line_Mobile.startAnimation(shakeAnimation);
+                    editphone.setError("you enter wrong mobile number.");
+                    progressDialog.dismiss();
                 } else {
                     editphone.setError(null);
                 }
@@ -222,8 +239,10 @@ public class GetMobileCode_Fragment extends Fragment {
                     editcode.setError("Please enter verification code.");
 //                    Toast.makeText(getActivity(), " Please enter verified code "
 //                            , Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
                 } else {
                     signInWithCredential(PhoneAuthProvider.getCredential(mVerificationId, code));
+                    progressDialog.dismiss();
                     editphone.setError(null);
                 }
             }
@@ -240,11 +259,13 @@ public class GetMobileCode_Fragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity(), "Password Reset Fragment ", Toast.LENGTH_LONG).show();
-
-                            startActivity(new Intent(getActivity(), ResetPassword_Activity.class));
+                            progressDialog.dismiss();
+                            startActivity(new Intent(getActivity()
+                                    , ResetPassword_Activity.class));
                         } else {
                             Toast.makeText(getActivity(), "Failed To Password Reset Fragment: " + task.getException().getMessage()
                                     , Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     }
                 });

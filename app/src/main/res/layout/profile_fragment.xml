@@ -66,13 +66,12 @@
         </LinearLayout>
 
         <View
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,13 +96,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,13 +126,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -159,13 +156,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -190,13 +186,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -221,13 +216,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -252,13 +246,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -283,13 +276,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -314,13 +306,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -345,13 +336,12 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            />
+            android:background="#000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -376,26 +366,28 @@
         </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"
-            android:layout_marginBottom="10dp"
-            />
+            android:background="#000" />
 
         <Button
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/btn_EditProfile"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:layout_gravity="center"
-            android:text="Edit Profile"
+            android:layout_marginTop="15dp"
             android:background="@drawable/loginbutton_selector"
-            android:textSize="@dimen/Text_Size_15"
-            android:id="@+id/btn_EditProfile"/>
+            android:padding="3dp"
+            android:text="Edit Profile"
+            android:textColor="#000000"
+            android:textSize="@dimen/Text_Size"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </LinearLayout>

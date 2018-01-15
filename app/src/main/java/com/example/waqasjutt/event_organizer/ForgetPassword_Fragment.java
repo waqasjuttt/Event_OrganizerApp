@@ -5,12 +5,15 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,9 +84,7 @@ public class ForgetPassword_Fragment extends Fragment {
         // Load ShakeAnimation
         shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.shake);
-
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Please wait...");
 
         final String getEmailId = et_email.getText().toString();
 
@@ -103,6 +104,8 @@ public class ForgetPassword_Fragment extends Fragment {
                     Line_Email.startAnimation(shakeAnimation);
                     et_email.setError("Space are not allowed.");
                 } else if (!et_email.getText().toString().trim().equals("")) {
+                    progressDialog.setMessage("Please wait...");
+                    progressDialog.show();
                     RegisteredUsernameAsync registeredUsernameAsync = new RegisteredUsernameAsync(getActivity(),
                             et_email.getText().toString());
                     registeredUsernameAsync.execute();
@@ -137,19 +140,23 @@ public class ForgetPassword_Fragment extends Fragment {
         @Override
         protected String doInBackground(Void... voids) {
 
+            RequestBody requestBody;
+            Request request;
+            Response response;
+
             OkHttpClient okHttpClient = new OkHttpClient();
 
-            RequestBody requestBody = new FormBody.Builder()
+            requestBody = new FormBody.Builder()
                     .add("email", email)
                     .build();
 
-            Request request = new Request.Builder()
+            request = new Request.Builder()
                     .url(Paths.URL_FORGET_PASSWORD)
                     .post(requestBody)
                     .build();
 
             try {
-                Response response = okHttpClient.newCall(request).execute();
+                response = okHttpClient.newCall(request).execute();
                 jsonresult = response.body().string();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -165,6 +172,8 @@ public class ForgetPassword_Fragment extends Fragment {
             try {
                 jsonObject = new JSONObject(s);
                 if (jsonObject.getString("error") == "true") {
+
+                    progressDialog.dismiss();
 
                     strMobile_Number = jsonObject.getString("mobile_number");
 
@@ -184,6 +193,7 @@ public class ForgetPassword_Fragment extends Fragment {
                             .commit();
                 } else {
                     Toast.makeText(activity, "Email does not Exist", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
