@@ -110,8 +110,6 @@ public class GetMobileCode_Fragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                progressDialog.setMessage("Please wait...");
-                progressDialog.show();
 
                 phonenumber = editphone.getText().toString();
 
@@ -122,6 +120,8 @@ public class GetMobileCode_Fragment extends Fragment {
                     Line_Mobile.startAnimation(shakeAnimation);
                     editphone.setError("Enter Mobile Number.");
                 } else if (phonenumber.equals(strMobile_Number)) {
+                    progressDialog.setMessage("Please wait...");
+                    progressDialog.show();
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                             phonenumber, 60, TimeUnit.SECONDS, getActivity(), new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
