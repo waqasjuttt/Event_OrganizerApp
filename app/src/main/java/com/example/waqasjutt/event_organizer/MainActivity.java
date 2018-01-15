@@ -150,14 +150,17 @@ public class MainActivity extends AppCompatActivity
         }
 
         //For Mine Color
-//        colors[0][1] = ContextCompat.getColor(MainActivity.this, R.color.Boom_Menu1);
+//        colors[0][1] = ContextCompat.getColor(MainActivity.this, R.color.boomColor);
 //        colors[0][0] = Util.getInstance().getPressedColor(colors[0][1]);
 //
-//        colors[1][1] = ContextCompat.getColor(MainActivity.this, R.color.Boom_Menu2);
+//        colors[1][1] = ContextCompat.getColor(MainActivity.this, R.color.boomColor);
 //        colors[1][0] = Util.getInstance().getPressedColor(colors[0][1]);
 //
-//        colors[2][1] = ContextCompat.getColor(MainActivity.this, R.color.Boom_Menu3);
+//        colors[2][1] = ContextCompat.getColor(MainActivity.this, R.color.boomColor);
 //        colors[2][0] = Util.getInstance().getPressedColor(colors[0][1]);
+//
+//        colors[3][1] = ContextCompat.getColor(MainActivity.this, R.color.boomColor);
+//        colors[3][0] = Util.getInstance().getPressedColor(colors[0][1]);
 
         String[] STRINGS = new String[]
                 {
@@ -196,6 +199,14 @@ public class MainActivity extends AppCompatActivity
                                     .commit();
                         } else if (buttonIndex == 1) {
                             Toast.makeText(context, "You clicked on " + strings[buttonIndex], Toast.LENGTH_SHORT).show();
+                            fragmentTransaction =
+                                    fragmentManager
+                                            .beginTransaction()
+                                            .replace(R.id.frameContainer,
+                                                    new ContactUs_Fragment());
+                            fragmentTransaction
+                                    .addToBackStack(null)
+                                    .commit();
                         } else if (buttonIndex == 2) {
                             Toast.makeText(context, "You clicked on " + strings[buttonIndex], Toast.LENGTH_SHORT).show();
                             fragmentTransaction =
@@ -222,7 +233,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private String[] Colors = {
-            "#F44336",
+            "#98f5ff",
             "#E91E63",
             "#9C27B0",
             "#2196F3",
