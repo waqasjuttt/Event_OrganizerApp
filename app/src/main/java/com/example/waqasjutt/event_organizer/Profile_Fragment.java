@@ -94,7 +94,6 @@ public class Profile_Fragment extends Fragment {
         email.setText(SharedPrefManager.getInstance(getActivity()).getUserEmail());
         mobile.setText("+92" + SharedPrefManager.getInstance(getActivity()).getUserMobile());
         gender.setText(SharedPrefManager.getInstance(getActivity()).getUserGender());
-//        interest.setText(SharedPrefManager.getInstance(getActivity()).getUserInterest());
 
         if (SharedPrefManager.getInstance(getActivity()).getUserInterest().contains("[")) {
             strBrakets = SharedPrefManager.getInstance(getActivity()).getUserInterest().replace("[", "");
@@ -118,7 +117,7 @@ public class Profile_Fragment extends Fragment {
         //For Boom Menu Button
         ((MainActivity) getActivity()).boomMenuButton.setVisibility(View.GONE);
         ((MainActivity) getActivity()).mTitleTextView.setVisibility(View.GONE);
-        ((MainActivity) getActivity()).setActionBarTitle(" Profile");
+        ((MainActivity) getActivity()).setActionBarTitle("Profile");
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override

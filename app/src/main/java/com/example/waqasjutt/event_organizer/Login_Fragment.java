@@ -49,7 +49,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class Login_Fragment extends Fragment implements View.OnClickListener {
+public class Login_Fragment extends Fragment implements View.OnClickListener{
 
     private Paths URL = new Paths();
     private View line_password;
@@ -102,6 +102,8 @@ public class Login_Fragment extends Fragment implements View.OnClickListener {
 
         return view;
     }
+
+
 
     // Initiate Views
     private void initViews() {

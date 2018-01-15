@@ -108,9 +108,8 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
         ((MainActivity) getActivity()).boomMenuButton.setVisibility(View.VISIBLE);
         ((MainActivity) getActivity()).mTitleTextView.setVisibility(View.VISIBLE);
         ((MainActivity) getActivity()).initInfoBoom();
-        ((MainActivity) getActivity()).mTitleTextView.setText(" Event Organizer");
+        ((MainActivity) getActivity()).mTitleTextView.setText("  Event Organizer");
 
-//        ((MainActivity) getActivity()).setActionBarTitle("Promo Codes");
         if (!SharedPrefManager.getInstance(getActivity()).isLoggedIn()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 new MainActivity().finishAffinity();

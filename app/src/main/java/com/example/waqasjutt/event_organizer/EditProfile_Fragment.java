@@ -124,7 +124,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
         //For Boom Menu Button
         ((MainActivity) getActivity()).boomMenuButton.setVisibility(View.GONE);
         ((MainActivity) getActivity()).mTitleTextView.setVisibility(View.GONE);
-        ((MainActivity) getActivity()).setActionBarTitle(" Edit Profile");
+        ((MainActivity) getActivity()).setActionBarTitle("Edit Profile");
 
         initViews();
         UserData();
@@ -537,6 +537,9 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
                                             .setCustomAnimations(R.anim.right_enter, R.anim.left_out)
                                             .replace(R.id.frameContainer, new Login_Fragment(),
                                                     Utils.HomePage_Fragment).commit();
+                                    fragmentManager
+                                            .popBackStack(null, FragmentManager
+                                                    .POP_BACK_STACK_INCLUSIVE);
                                 } else if (jsonObject.getString("error") == "true") {
                                     TastyToast.makeText(getActivity(), jsonObject.getString("message")
                                             , Toast.LENGTH_LONG, TastyToast.ERROR).show();
