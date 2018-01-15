@@ -198,6 +198,14 @@ public class MainActivity extends AppCompatActivity
                             Toast.makeText(context, "You clicked on " + strings[buttonIndex], Toast.LENGTH_SHORT).show();
                         } else if (buttonIndex == 2) {
                             Toast.makeText(context, "You clicked on " + strings[buttonIndex], Toast.LENGTH_SHORT).show();
+                            fragmentTransaction =
+                                    fragmentManager
+                                            .beginTransaction()
+                                            .replace(R.id.frameContainer,
+                                                    new AboutUs_Fragment());
+                            fragmentTransaction
+                                    .addToBackStack(null)
+                                    .commit();
                         } else if (buttonIndex == 3) {
                             Toast.makeText(context, "You clicked on " + strings[buttonIndex], Toast.LENGTH_SHORT).show();
                             SharedPrefManager.getInstance(MainActivity.this).logout();

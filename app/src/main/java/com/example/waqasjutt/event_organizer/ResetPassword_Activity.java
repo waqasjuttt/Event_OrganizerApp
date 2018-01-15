@@ -65,6 +65,9 @@ public class ResetPassword_Activity extends AppCompatActivity implements View.On
         ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
 
+        sharedPreferences = getSharedPreferences("temp_username", Context.MODE_PRIVATE);
+        strEmail = sharedPreferences.getString("email", null);
+
         fragmentManager = getSupportFragmentManager();
 
         // Load ShakeAnimation
@@ -135,7 +138,7 @@ public class ResetPassword_Activity extends AppCompatActivity implements View.On
             et_ConfirmNewPassword.startAnimation(shakeAnimation);
             ConfirmNewPassword_layout.startAnimation(shakeAnimation);
             Line_ConfirmNewPassword.startAnimation(shakeAnimation);
-            et_ConfirmNewPassword.setError("Enter your new password");
+            et_ConfirmNewPassword.setError("Enter your confirm password");
         } else if (!getConfirmPassword.equals(getPassword)) {
             et_ConfirmNewPassword.startAnimation(shakeAnimation);
             ConfirmNewPassword_layout.startAnimation(shakeAnimation);
@@ -160,6 +163,7 @@ public class ResetPassword_Activity extends AppCompatActivity implements View.On
 
                                     startActivity(new Intent(ResetPassword_Activity.this
                                             , MainActivity.class));
+                                    finishAffinity();
 
                                 } else if (jsonObject.getString("error") == "true") {
                                     TastyToast.makeText(ResetPassword_Activity.this, jsonObject.getString("message")
@@ -181,7 +185,7 @@ public class ResetPassword_Activity extends AppCompatActivity implements View.On
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
-                    params.put("email", "fahad1@gmail.com");
+                    params.put("email", strEmail);
                     params.put("password", getConfirmPassword);
                     return params;
                 }
