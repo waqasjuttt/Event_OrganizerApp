@@ -11,4 +11,15 @@
         android:id="@+id/slider"
         android:layout_width="fill_parent"
         android:layout_height="250dp" />
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We are Best for your EVENT"
+        android:textSize="25sp"
+        android:textColor="#f00"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"/>
+
 </LinearLayout>

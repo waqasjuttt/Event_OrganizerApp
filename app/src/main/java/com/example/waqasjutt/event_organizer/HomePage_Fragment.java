@@ -1,14 +1,18 @@
 package com.example.waqasjutt.event_organizer;
 
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -22,6 +26,7 @@ import java.util.HashMap;
 public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSliderClickListener,
         ViewPagerEx.OnPageChangeListener {
 
+    private TextView textView;
     private SliderLayout sliderLayout;
     private HashMap<String, Integer> HashMapForLocalRes;
     private View view;
@@ -31,12 +36,36 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
         // Required empty public constructor
     }
 
+    private String getColoredSpanned(String text, String color) {
+        String input = "<font color=" + color + ">" + text + "</font>";
+        return input;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.home_page_fragment, container, false);
         fragmentManager = getActivity().getSupportFragmentManager();
+
+        Animation animation;
+        animation = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.text_anim);
+
+        textView = (TextView) view.findViewById(R.id.tv_info);
+
+        String best = getColoredSpanned("Best ", "#32cd32"),
+                event = getColoredSpanned("EVENT", "#9acd32"),
+                we = getColoredSpanned("We ", "#8b1c62"),
+                are = getColoredSpanned("are ", "#292929"),
+                For = getColoredSpanned("for ", "#ff69b4");
+        textView.setText(Html.fromHtml(we + are + best + For + "your " + event));
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(500); //You can manage the blinking time with this parameter
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        textView.startAnimation(anim);
 
         sliderLayout = (SliderLayout) view.findViewById(R.id.slider);
 

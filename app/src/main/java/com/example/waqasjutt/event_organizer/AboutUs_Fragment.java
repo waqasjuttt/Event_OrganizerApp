@@ -74,6 +74,6 @@ public class AboutUs_Fragment extends Fragment {
                 + "\n• We Provide Unrivalled customer service."
                 + "\n• Working with specialists.");
 
-        tv_CopyRights.setText("Copyright © 2018 • Event Organizer Event • All rights reserved");
+        tv_CopyRights.setText("Copyright © 2018 • Event Organizer • All rights reserved");
     }
 }

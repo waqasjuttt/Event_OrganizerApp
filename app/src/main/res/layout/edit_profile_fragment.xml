@@ -424,13 +424,13 @@
             android:layout_marginLeft="10dp"
             android:background="#000000" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_weight="70"
-            android:text="Upload image"
-            android:textSize="14sp" />
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:layout_weight="70"-->
+            <!--android:text="Upload image"-->
+            <!--android:textSize="14sp" />-->
 
         <Button
             android:id="@+id/btnEditProfile"
