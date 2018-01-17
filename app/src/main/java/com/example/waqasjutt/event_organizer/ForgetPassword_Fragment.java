@@ -23,10 +23,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.sdsmdg.tastytoast.TastyToast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -104,11 +111,71 @@ public class ForgetPassword_Fragment extends Fragment {
                     Line_Email.startAnimation(shakeAnimation);
                     et_email.setError("Space are not allowed.");
                 } else if (!et_email.getText().toString().trim().equals("")) {
+//                    progressDialog.setMessage("Please wait...");
+//                    progressDialog.show();
+//                    RegisteredUsernameAsync registeredUsernameAsync = new RegisteredUsernameAsync(getActivity(),
+//                            et_email.getText().toString());
+//                    registeredUsernameAsync.execute();
                     progressDialog.setMessage("Please wait...");
                     progressDialog.show();
-                    RegisteredUsernameAsync registeredUsernameAsync = new RegisteredUsernameAsync(getActivity(),
-                            et_email.getText().toString());
-                    registeredUsernameAsync.execute();
+                    StringRequest stringRequest = new StringRequest(
+                            com.android.volley.Request.Method.POST,
+                            Paths.URL_FORGET_PASSWORD,
+                            new com.android.volley.Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    progressDialog.dismiss();
+                                    try {
+                                        JSONObject obj = new JSONObject(response);
+                                        if (obj.getString("error") == "true") {
+                                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("temp_username", Context.MODE_APPEND);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("email", et_email.getText().toString()).commit();
+                                            editor.putString("mobile_number", strMobile_Number).commit();
+                                            Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                                            fragmentTransaction =
+                                                    fragmentManager
+                                                            .beginTransaction()
+                                                            .setCustomAnimations(R.anim.left_out, R.anim.right_out)
+                                                            .replace(R.id.frameContainer,
+                                                                    new GetMobileCode_Fragment());
+                                            fragmentTransaction
+                                                    .addToBackStack(null)
+                                                    .commit();
+                                        } else if (obj.getString("error") == "false") {
+                                            Email_layout.startAnimation(shakeAnimation);
+                                            et_email.startAnimation(shakeAnimation);
+                                            Line_Email.startAnimation(shakeAnimation);
+
+                                            TastyToast.makeText(getActivity(),
+                                                    obj.getString("message"),
+                                                    Toast.LENGTH_SHORT,
+                                                    TastyToast.ERROR).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new com.android.volley.Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getActivity(),
+                                            "Server is not responding...",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                    ) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> param = new HashMap<>();
+                            param.put("email", et_email.getText().toString());
+                            return param;
+                        }
+                    };
+                    RequestHandler.getInstance(getActivity()).addToRequestQueue(stringRequest);
+
                 } else {
                     et_email.setError(null);
                 }

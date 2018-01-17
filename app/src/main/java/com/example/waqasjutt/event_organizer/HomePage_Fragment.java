@@ -48,10 +48,6 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
         view = inflater.inflate(R.layout.home_page_fragment, container, false);
         fragmentManager = getActivity().getSupportFragmentManager();
 
-        Animation animation;
-        animation = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.text_anim);
-
         textView = (TextView) view.findViewById(R.id.tv_info);
 
         String best = getColoredSpanned("Best ", "#32cd32"),
