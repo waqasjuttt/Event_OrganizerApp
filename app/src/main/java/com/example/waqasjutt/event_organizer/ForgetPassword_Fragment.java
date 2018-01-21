@@ -193,78 +193,78 @@ public class ForgetPassword_Fragment extends Fragment {
         return view;
     }
 
-    public class RegisteredUsernameAsync extends AsyncTask<Void, Void, String> {
-
-        private Activity activity;
-        private String jsonresult;
-        private String email;
-
-        public RegisteredUsernameAsync(Activity activity, String username) {
-            this.activity = activity;
-            this.email = username;
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-
-            RequestBody requestBody;
-            Request request;
-            Response response;
-
-            OkHttpClient okHttpClient = new OkHttpClient();
-
-            requestBody = new FormBody.Builder()
-                    .add("email", email)
-                    .build();
-
-            request = new Request.Builder()
-                    .url(Paths.URL_FORGET_PASSWORD)
-                    .post(requestBody)
-                    .build();
-
-            try {
-                response = okHttpClient.newCall(request).execute();
-                jsonresult = response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return jsonresult;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            JSONObject jsonObject;
-            try {
-                jsonObject = new JSONObject(s);
-                if (jsonObject.getString("error") == "true") {
-
-                    progressDialog.dismiss();
-
-                    strMobile_Number = jsonObject.getString("mobile_number");
-
-                    SharedPreferences sharedPreferences = activity.getSharedPreferences("temp_username", Context.MODE_APPEND);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("email", email).commit();
-                    editor.putString("mobile_number", strMobile_Number).commit();
-                    Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                    fragmentTransaction =
-                            fragmentManager
-                                    .beginTransaction()
-                                    .setCustomAnimations(R.anim.left_out, R.anim.right_out)
-                                    .replace(R.id.frameContainer,
-                                            new GetMobileCode_Fragment());
-                    fragmentTransaction
-                            .addToBackStack(null)
-                            .commit();
-                } else {
-                    Toast.makeText(activity, "Email does not Exist", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    public class RegisteredUsernameAsync extends AsyncTask<Void, Void, String> {
+//
+//        private Activity activity;
+//        private String jsonresult;
+//        private String email;
+//
+//        public RegisteredUsernameAsync(Activity activity, String username) {
+//            this.activity = activity;
+//            this.email = username;
+//        }
+//
+//        @Override
+//        protected String doInBackground(Void... voids) {
+//
+//            RequestBody requestBody;
+//            Request request;
+//            Response response;
+//
+//            OkHttpClient okHttpClient = new OkHttpClient();
+//
+//            requestBody = new FormBody.Builder()
+//                    .add("email", email)
+//                    .build();
+//
+//            request = new Request.Builder()
+//                    .url(Paths.URL_FORGET_PASSWORD)
+//                    .post(requestBody)
+//                    .build();
+//
+//            try {
+//                response = okHttpClient.newCall(request).execute();
+//                jsonresult = response.body().string();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            return jsonresult;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            super.onPostExecute(s);
+//            JSONObject jsonObject;
+//            try {
+//                jsonObject = new JSONObject(s);
+//                if (jsonObject.getString("error") == "true") {
+//
+//                    progressDialog.dismiss();
+//
+//                    strMobile_Number = jsonObject.getString("mobile_number");
+//
+//                    SharedPreferences sharedPreferences = activity.getSharedPreferences("temp_username", Context.MODE_APPEND);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("email", email).commit();
+//                    editor.putString("mobile_number", strMobile_Number).commit();
+//                    Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+//                    fragmentTransaction =
+//                            fragmentManager
+//                                    .beginTransaction()
+//                                    .setCustomAnimations(R.anim.left_out, R.anim.right_out)
+//                                    .replace(R.id.frameContainer,
+//                                            new GetMobileCode_Fragment());
+//                    fragmentTransaction
+//                            .addToBackStack(null)
+//                            .commit();
+//                } else {
+//                    Toast.makeText(activity, "Email does not Exist", Toast.LENGTH_SHORT).show();
+//                    progressDialog.dismiss();
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

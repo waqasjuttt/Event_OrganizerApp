@@ -15,13 +15,23 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.sdsmdg.tastytoast.TastyToast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSliderClickListener,
         ViewPagerEx.OnPageChangeListener {
@@ -148,7 +158,70 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
                     .commit();
         }
 
+        getData();
+
         return view;
+    }
+
+    private void getData() {
+        final String strID = SharedPrefManager.getInstance(getActivity()).getUserID();
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Paths.URL_UPDATED_USER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            if (obj.getString("error") == "false") {
+                                SharedPrefManager.getInstance(getActivity())
+                                        .userLoginTest(
+                                                obj.getString("id"),
+                                                obj.getString("first_name"),
+                                                obj.getString("last_name"),
+                                                obj.getString("email"),
+                                                obj.getString("mobile_number"),
+                                                obj.getString("cnic"),
+                                                obj.getString("date_of_birth"),
+                                                obj.getString("geneder"),
+                                                obj.getString("interests"),
+                                                obj.getString("address"),
+                                                obj.getString("telephone_number"),
+                                                obj.getString("about"),
+                                                obj.getString("domain")
+                                        );
+
+                                TastyToast.makeText(getActivity(), "Login Successful.",
+                                        TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+                            } else if (obj.getString("error") == "true") {
+                                TastyToast.makeText(getActivity(),
+                                        obj.getString("message"),
+                                        Toast.LENGTH_SHORT,
+                                        TastyToast.ERROR).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(),
+                                "Server is not responding..." + strID,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("id", strID);
+                return param;
+            }
+        };
+        RequestHandler.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
     private void AddImageUrlFormLocalRes() {
