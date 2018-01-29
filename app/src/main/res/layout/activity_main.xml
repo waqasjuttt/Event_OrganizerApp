@@ -7,7 +7,7 @@
     android:layout_height="fill_parent"
     android:fillViewport="true"
     android:overScrollMode="never"
-    android:scrollbars="none"
+    android:scrollbars="vertical"
     tools:context="com.example.waqasjutt.event_organizer.MainActivity">
 
     <RelativeLayout
