@@ -106,8 +106,10 @@ public class MainActivity extends AppCompatActivity
             mTitleTextView.setVisibility(View.VISIBLE);
         } else if (HomePage_Fragment != null) {
             customDialogClass.show();
+            customDialogClass.setCanceledOnTouchOutside(false);
         } else {
             customDialogClass.show();
+            customDialogClass.setCanceledOnTouchOutside(false);
         }
     }
 
