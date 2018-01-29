@@ -38,11 +38,11 @@ public class GetMobileCode_Fragment extends Fragment {
     @Bind(R.id.editcodenumber)
     EditText editcode;
     //    private EditText editphone, editcode;
-    private Button btncode, btnnext;
+    private Button btncode, btnnext, btnResendCode;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthlistener;
     private String mVerificationId;
-    private String strEmail, strMobile_Number, phonenumber;
+    private String strMobile_Number, phonenumber;
     private View view;
     private SharedPreferences sharedPreferences;
     private TextInputLayout Mobile_layout, Code_Layout;
@@ -96,8 +96,7 @@ public class GetMobileCode_Fragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
-        sharedPreferences = getActivity().getSharedPreferences("temp_username", Context.MODE_PRIVATE);
-        strEmail = sharedPreferences.getString("email", null);
+        sharedPreferences = getActivity().getSharedPreferences("ForgetPassword", Context.MODE_PRIVATE);
         strMobile_Number = sharedPreferences.getString("mobile_number", null);
 
         mAuthlistener = new FirebaseAuth.AuthStateListener() {
@@ -144,6 +143,7 @@ public class GetMobileCode_Fragment extends Fragment {
                                     // super.onCodeSent(s, forceResendingToken);
                                     mVerificationId = s;
                                     progressDialog.dismiss();
+                                    Toast.makeText(getActivity(), "Code Sent", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -243,6 +243,7 @@ public class GetMobileCode_Fragment extends Fragment {
                     progressDialog.dismiss();
                 } else {
                     signInWithCredential(PhoneAuthProvider.getCredential(mVerificationId, code));
+                    Toast.makeText(getActivity(),code,Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     editphone.setError(null);
                 }

@@ -53,7 +53,6 @@ public class ForgetPassword_Fragment extends Fragment {
     //    private EditText et_email;
     private Button btnnext;
     private ProgressDialog progressDialog;
-    private String strMobile_Number;
     private TextInputLayout Email_layout;
     private View Line_Email;
     private Animation shakeAnimation;
@@ -129,10 +128,10 @@ public class ForgetPassword_Fragment extends Fragment {
                                     try {
                                         JSONObject obj = new JSONObject(response);
                                         if (obj.getString("error") == "true") {
-                                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("temp_username", Context.MODE_APPEND);
+                                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ForgetPassword", Context.MODE_APPEND);
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                             editor.putString("email", et_email.getText().toString()).commit();
-                                            editor.putString("mobile_number", strMobile_Number).commit();
+                                            editor.putString("mobile_number", obj.getString("mobile_number")).commit();
                                             Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                                             fragmentTransaction =
                                                     fragmentManager
