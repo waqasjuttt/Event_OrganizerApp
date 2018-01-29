@@ -149,6 +149,7 @@ public class ResetPassword_Activity extends AppCompatActivity implements View.On
             et_ConfirmNewPassword.setError(null);
             progressDialog.setMessage("Updating Password...");
             progressDialog.show();
+            progressDialog.setCanceledOnTouchOutside(false);
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     Paths.URL_UPDATE_PASSWORD,
                     new Response.Listener<String>() {

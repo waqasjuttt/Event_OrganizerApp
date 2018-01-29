@@ -122,6 +122,7 @@ public class GetMobileCode_Fragment extends Fragment {
                 } else if (phonenumber.equals(strMobile_Number)) {
                     progressDialog.setMessage("Please wait...");
                     progressDialog.show();
+                    progressDialog.setCanceledOnTouchOutside(false);
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                             phonenumber, 60, TimeUnit.SECONDS, getActivity(), new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 

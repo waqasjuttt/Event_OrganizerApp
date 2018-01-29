@@ -158,7 +158,7 @@ public class HomePage_Fragment extends Fragment implements BaseSliderView.OnSlid
                     .commit();
         }
 
-        getData();
+//        getData();
 
         return view;
     }

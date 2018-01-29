@@ -647,6 +647,7 @@ public class Signup_Fragment extends Fragment implements View.OnClickListener {
 
             progressDialog.setMessage("Registering user...");
             progressDialog.show();
+            progressDialog.setCanceledOnTouchOutside(false);
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     Paths.URL_SIGNUP,
                     new Response.Listener<String>() {

@@ -521,6 +521,7 @@ public class EditProfile_Fragment extends Fragment implements View.OnClickListen
 
             progressDialog.setMessage("User updating...");
             progressDialog.show();
+            progressDialog.setCanceledOnTouchOutside(false);
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     Paths.URL_EDITPROFILE,
                     new Response.Listener<String>() {

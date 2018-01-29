@@ -72,6 +72,7 @@ public class Profile_Fragment extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Profile updating, Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
 
         profileName = (TextView) view.findViewById(R.id.tvProfileName);
         name = (TextView) view.findViewById(R.id.tvFirstName);
@@ -131,6 +132,7 @@ public class Profile_Fragment extends Fragment {
                 fragmentTransaction
                         .addToBackStack(null)
                         .commit();
+                progressDialog.dismiss();
             }
         });
 

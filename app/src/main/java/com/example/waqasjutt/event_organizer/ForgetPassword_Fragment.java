@@ -118,6 +118,7 @@ public class ForgetPassword_Fragment extends Fragment {
 //                    registeredUsernameAsync.execute();
                     progressDialog.setMessage("Please wait...");
                     progressDialog.show();
+                    progressDialog.setCanceledOnTouchOutside(false);
                     StringRequest stringRequest = new StringRequest(
                             com.android.volley.Request.Method.POST,
                             Paths.URL_FORGET_PASSWORD,

@@ -316,6 +316,8 @@ public class Login_Fragment extends Fragment implements View.OnClickListener{
 
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
+//            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setCancelable(false);
             StringRequest stringRequest = new StringRequest(
                     Request.Method.POST,
                     URL.URL_LOGIN,
@@ -325,23 +327,6 @@ public class Login_Fragment extends Fragment implements View.OnClickListener{
                             progressDialog.dismiss();
                             try {
                                 JSONObject obj = new JSONObject(response);
-//                                if (!obj.getBoolean("error")) {
-//                                    SharedPrefManager.getInstance(getActivity())
-//                                            .userLoginTest(
-//                                                    obj.getInt("id"),
-//                                                    obj.getString("first_name"),
-//                                                    obj.getString("last_name"),
-//                                                    obj.getString("email"),
-//                                                    obj.getString("mobile_number"),
-//                                                    obj.getString("cnic"),
-//                                                    obj.getString("date_of_birth"),
-//                                                    obj.getString("geneder"),
-//                                                    obj.getString("interests"),
-//                                                    obj.getString("address"),
-//                                                    obj.getString("telephone_number"),
-//                                                    obj.getString("about"),
-//                                                    obj.getString("domain")
-//                                            );
                                 if (obj.getString("error") == "false") {
                                     SharedPrefManager.getInstance(getActivity())
                                             .userLoginTest(
