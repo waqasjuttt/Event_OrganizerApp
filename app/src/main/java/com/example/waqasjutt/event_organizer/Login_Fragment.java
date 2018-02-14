@@ -78,19 +78,12 @@ public class Login_Fragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.login_fragment, container, false);
         ButterKnife.bind(getActivity());
-
-//        //For Disable ActionBar Back Button
-//        if (((MainActivity) getActivity()).getSupportActionBar() != null) {
-//            ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//            ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
-//        }
 
         //For Boom Menu Button
         ((MainActivity) getActivity()).boomMenuButton.setVisibility(View.GONE);
